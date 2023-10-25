@@ -20,7 +20,7 @@ namespace BookStoreAPIs.Controllers
         [EnableQuery]
         public async Task<IActionResult> Get() => Ok(await bookRepository.GetAllAsync());
         [EnableQuery]
-        public async Task<IActionResult> Get(int key)
+        public async Task<ActionResult<Book>> Get(int key)
         {
             var book = await bookRepository.GetById(key);
             return Ok(book);

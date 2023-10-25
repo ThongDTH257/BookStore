@@ -2,6 +2,7 @@
 using BusinessObject.DTO;
 using BusinessObject.Models;
 using DataAccess.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,23 @@ namespace DataAccess.Implementation
                 return null;
             }
             return author;
+        }
+
+        public async Task<Author> UpdateAuthor(int id,AuthorDTO model)
+        {
+            var author = await dbContext.Authors.FirstOrDefaultAsync(p => p.Id == id);
+            if (author != null)
+            {
+                mapper.Map(model, author);
+                dbContext.Update(author);
+                var isSuccess = await dbContext.SaveChangesAsync() > 0;
+                if (!isSuccess)
+                {
+                    return null;
+                }
+                return author;
+            }
+            return  author;
         }
     }
 }

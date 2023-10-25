@@ -11,5 +11,6 @@ namespace DataAccess.Interface
     public interface IAuthorRepository : IGenericRepository<Author>
     {
         Task<Author> CreateAuthor(AuthorDTO model);
+        Task<Author> UpdateAuthor(int id,AuthorDTO model);    
     }
 }

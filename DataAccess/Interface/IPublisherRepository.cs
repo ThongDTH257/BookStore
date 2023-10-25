@@ -11,5 +11,6 @@ namespace DataAccess.Interface
     public interface IPublisherRepository : IGenericRepository<Publisher>
     {
         Task<Publisher> CreatePublisher(PublisherDTO model);
+        Task<Publisher> UpdatePublisher(int id,PublisherDTO model);
     }
 }

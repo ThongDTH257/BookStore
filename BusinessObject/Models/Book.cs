@@ -20,7 +20,7 @@ namespace BusinessObject.Models
         public DateTime? PublishedDate { get; set; }
 
         public virtual ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
-        public virtual Publisher Publisher { get; set; } 
+        public virtual Publisher? Publisher { get; set; } 
         [JsonIgnore]
         public virtual List<Author> Authors { get; set; } = new();
     }

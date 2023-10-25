@@ -32,13 +32,23 @@ namespace BookStoreAPIs.Controllers
             return Created(book);
         }
         [EnableQuery]
-        [Route("odata/[controller]")]
+        [Route("odata/[controller]/{id}")]
         [HttpPut]
-        public async Task<IActionResult> Put(int id,[FromBody] CreateBookDTO model)
+        public async Task<IActionResult> Put(int id, [FromBody] CreateBookDTO model)
         {
             var book = await bookRepository.UpdateBook(id, model);
             if (book == null) return NotFound("Book Id does not exist");
             return Updated(book);
+        }
+
+        [EnableQuery]
+        [Route("odata/[controller]/{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await bookRepository.Delete(id);
+            if(!result) return NotFound("Cannot find with book id: " + id);
+            return Ok();
         }
     }
 }

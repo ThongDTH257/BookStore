@@ -1,4 +1,5 @@
-﻿using BusinessObject.Models;
+﻿using BusinessObject.DTO;
+using BusinessObject.Models;
 using DataAccess.Implementation;
 using DataAccess.Interface;
 using Microsoft.AspNetCore.Http;
@@ -17,5 +18,21 @@ namespace BookStoreAPIs.Controllers
         }
         [EnableQuery]
         public async Task<ActionResult<List<Author>>> Get() => Ok(await authorRepository.GetAllAsync());
+        [EnableQuery]
+        public async Task<IActionResult> Post(AuthorDTO model)
+        {
+            var author = await authorRepository.CreateAuthor(model);
+            if (model == null) return BadRequest("Cannot create author");
+            return Ok(author);
+        }
+        [EnableQuery]
+        [Route("odata/[controller]/{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await authorRepository.Delete(id);
+            if (!result) return NotFound("Cannot find with author id: " + id);
+            return Ok();
+        }
     }
 }

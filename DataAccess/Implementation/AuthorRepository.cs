@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessObject.DTO;
 using BusinessObject.Models;
 using DataAccess.Interface;
 using System;
@@ -17,6 +18,18 @@ namespace DataAccess.Implementation
         {
             this.dbContext = context;
             this.mapper = mapper;
+        }
+
+        public async Task<Author> CreateAuthor(AuthorDTO model)
+        {
+            var author = mapper.Map<Author>(model);
+            dbContext.Authors.Add(author);
+            var isSuccess = await dbContext.SaveChangesAsync() > 0;
+            if (!isSuccess)
+            {
+                return null;
+            }
+            return author;
         }
     }
 }

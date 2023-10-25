@@ -48,12 +48,12 @@ namespace DataAccess.Implementation
                 mapper.Map(model, book);
                 dbContext.Update(book);
                 var isSuccess = await dbContext.SaveChangesAsync() > 0;
-                if(isSuccess)
+                if(!isSuccess)
                 {
-                    return book;
+                    return null;
                 }
             }
-            return null;
+            return book;
         }
     }
 }

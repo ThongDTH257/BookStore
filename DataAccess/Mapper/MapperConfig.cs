@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessObject.DTO;
 using BusinessObject.DTO.Book;
 using BusinessObject.DTO.User;
 using BusinessObject.Models;
@@ -16,6 +17,8 @@ namespace DataAccess.Mapper
         {
             CreateMap<User, RegisterDTO>().ReverseMap();
             CreateMap<Book, CreateBookDTO>().ReverseMap();
+            CreateMap<Author, AuthorDTO>().ReverseMap();
+            CreateMap<Publisher, PublisherDTO>().ReverseMap();  
         }
     }
 }

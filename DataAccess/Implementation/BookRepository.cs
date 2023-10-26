@@ -55,5 +55,11 @@ namespace DataAccess.Implementation
             }
             return book;
         }
+
+        public async Task<IEnumerable<Book>> Search(string name)
+        {
+            var books = await dbContext.Books.Where(b => b.Title.Contains(name)).ToListAsync();
+            return books;
+        }
     }
 }

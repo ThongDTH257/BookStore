@@ -14,5 +14,6 @@ namespace DataAccess.Interface
         Task<Book> CreateBook(CreateBookDTO model);
         Task<IEnumerable<Book>> GetBooks();
         Task<Book> UpdateBook (int id, CreateBookDTO model);
+        Task<IEnumerable<Book>> Search(string name);
     }
 }

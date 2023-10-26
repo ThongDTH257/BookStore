@@ -15,6 +15,12 @@ namespace BookStoreAPIs.Controllers
         {
             this.userRepository = userRepository;
         }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var user = await userRepository.GetAllAsync();
+            return Ok(user);
+        }
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDTO model)
         {

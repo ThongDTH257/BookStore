@@ -1,0 +1,83 @@
+﻿@model BusinessObject.DTO.Book.CreateBookDTO
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Edit";
+    BusinessObject.Models.Book book = ViewData["Book"] as BusinessObject.Models.Book;
+}
+<h1>Edit</h1>
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">@ViewData["ErrorMessage"]</div>
+}
+@if (ViewData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">@ViewData["SuccessMessage"]</div>
+}
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-2">
+                <label asp-for="Title" class="control-label mb-1">Title</label>
+                <input asp-for="Title" class="form-control" value=@book.Title/>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Type" class="control-label mb-1">Type</label>
+                <input asp-for="Type" class="form-control" value=@book.Type/>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Price" class="control-label mb-1">Price</label>
+                <input asp-for="Price" class="form-control" value=@book.Price/>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Advance" class="control-label mb-1">Advance</label>
+                <input asp-for="Advance" class="form-control" value=@book.Advance/>
+                <span asp-validation-for="Advance" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="PublisherId" class="control-label mb-1">Publisher</label>
+                <select asp-for="PublisherId" class="form-control" >
+                    <option value="@book.PublisherId">@book.Publisher.Name</option>
+                    @foreach (var std in (List<BusinessObject.Models.Publisher>)ViewData["Publishers"])
+                    {
+                        if(std.Id != book.PublisherId)
+                        {
+                            <option value="@std.Id">@std.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Royalty" class="control-label mb-1">Royalty</label>
+                <input asp-for="Royalty" class="form-control" value=@book.Royalty/>
+                <span asp-validation-for="Royalty" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Notes" class="control-label mb-1">Notes</label>
+                <input asp-for="Notes" class="form-control" value=@book.Notes/>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <input type="submit" value="Save" class="btn btn-primary" asp-route-id= "@book.Id"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

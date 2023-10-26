@@ -18,7 +18,7 @@ namespace BookStoreAPIs.Controllers
             this.bookRepository = bookRepository;
         }
         [EnableQuery]
-        public async Task<IActionResult> Get() => Ok(await bookRepository.GetAllAsync());
+        public async Task<IActionResult> Get() => Ok(await bookRepository.GetBooks());
         [EnableQuery]
         public async Task<ActionResult<Book>> Get(int key)
         {
@@ -38,7 +38,7 @@ namespace BookStoreAPIs.Controllers
         {
             var book = await bookRepository.UpdateBook(id, model);
             if (book == null) return NotFound("Book Id does not exist");
-            return Updated(book);
+            return Ok("Update successfully");
         }
 
         [EnableQuery]

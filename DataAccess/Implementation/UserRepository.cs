@@ -21,6 +21,16 @@ namespace DataAccess.Implementation
             this.mapper = mapper;
         }
 
+        public async Task<User> GetByEmail(string email)
+        {
+            var user  = await dbContext.Users.FirstOrDefaultAsync(u=>u.Email==email);
+            if (user == null)
+            {
+                return null;
+            }
+            return user;
+        }
+
         public async Task<User?> Login(LoginDTO model)
         {
             var user = await dbContext.Users.FirstOrDefaultAsync(u=>u.Email== model.Email && u.Password == model.Password);
@@ -45,6 +55,23 @@ namespace DataAccess.Implementation
             if (isSuccess) 
             {
                 check = true;
+            }
+            return check;
+        }
+
+        public async Task<bool> UpdateProfile(int id, ProfileDTO model)
+        {
+            bool check = false;
+            var user = await dbContext.Users.FirstOrDefaultAsync(b=>b.Id==id);
+            if(user != null)
+            {
+                mapper.Map(model, user);
+                dbContext.Update(user);
+                var isSuccess = await dbContext.SaveChangesAsync() > 0;
+                if (isSuccess) 
+                {
+                    check = true;
+                }
             }
             return check;
         }

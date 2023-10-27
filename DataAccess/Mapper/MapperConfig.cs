@@ -19,6 +19,7 @@ namespace DataAccess.Mapper
             CreateMap<Book, CreateBookDTO>().ReverseMap();
             CreateMap<Author, AuthorDTO>().ReverseMap();
             CreateMap<Publisher, PublisherDTO>().ReverseMap();  
+            CreateMap<User, ProfileDTO>().ReverseMap();
         }
     }
 }

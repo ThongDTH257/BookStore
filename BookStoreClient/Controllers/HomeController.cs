@@ -32,6 +32,10 @@ namespace BookStoreClient.Controllers
             {
                 return RedirectToAction("Index", "Book");
             }
+            if(role == "user")
+            {
+                return RedirectToAction("Index", "User");
+            }
             if (TempData != null)
             {
                 ViewData["SuccessMessage"] = TempData["SuccessMessage"];
@@ -56,7 +60,7 @@ namespace BookStoreClient.Controllers
                 {
                     HttpContext.Session.SetString("ROLE", "user");
                 }
-                return RedirectToAction("Index", "Book");
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -79,7 +83,13 @@ namespace BookStoreClient.Controllers
                 TempData["ErrorMessage"] = "Email already exists.";
                 return RedirectToAction("Register");
             }
-            TempData["SuccessMessage"] = "Register successfully! Wait for back to Login";
+            TempData["SuccessMessage"] = "Register successfully! ";
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
 

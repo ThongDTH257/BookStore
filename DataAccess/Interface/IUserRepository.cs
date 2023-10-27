@@ -12,5 +12,7 @@ namespace DataAccess.Interface
     {
         Task<User?> Login(LoginDTO model);
         Task<Boolean> Register(RegisterDTO model);
+        Task<Boolean> UpdateProfile(int id, ProfileDTO model);
+        Task<User> GetByEmail(string email);
     }
 }
